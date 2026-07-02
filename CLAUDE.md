@@ -50,4 +50,4 @@ This is the one piece of real logic. Because hosting is static (no server, no DB
 
 ## Other image directories
 
-`location-photo/` and `menu-photo/` are plain, hardcoded `<img src="…">` references from `Location.html` and `Menu.html` — no JSON manifest, no admin tooling, unlike `gallery-photo/`. `gbp_images/` and `ig_images/` (Google Business Profile / Instagram photo dumps) and `uploads/` are untracked source-asset folders not referenced by any page; treat them as raw material staged outside the site, not live assets.
+`location-photo/` and `menu-photo/` are plain, hardcoded `<img src="…">` references from `Location.html` and `Menu.html` — no JSON manifest, no admin tooling, unlike `gallery-photo/`. `gbp-photo/` and `ig-photo/` (Google Business Profile / Instagram photo dumps) are tracked source-asset folders, and `uploads/` is an untracked one — none of the three are referenced by any page; treat them as raw material staged outside the site, not live assets.
