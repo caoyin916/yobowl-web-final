@@ -267,7 +267,7 @@ h1, h2, h3, h4 {
 .hero-logo {
   width: 460px; max-width: 72vw; margin: 0; display: block;
 }
-.hero .section-eyebrow { color: var(--ember); justify-content: center; }
+.hero .section-eyebrow { color: var(--ember); justify-content: center; display: flex; }
 .hero h1 {
   font-size: clamp(40px, 6.6vw, 76px);
   font-weight: 800;
