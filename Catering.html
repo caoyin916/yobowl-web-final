@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@1,700;1,900&family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <script>document.documentElement.className += ' js';</script>
-<link rel="stylesheet" href="css/styles.css?v=3">
+<link rel="stylesheet" href="css/styles.css?v=6">
 </head>
 <body>
 
@@ -45,12 +45,11 @@
         <li><a href="Gallery.html">Gallery</a></li>
         <li><a href="Location.html">Location &amp; Hours</a></li>
         <li><a class="active" href="Catering.html">Catering</a></li>
-        <li><a href="Location.html#contact">Contact</a></li>
-      </ul>
+        </ul>
     </nav>
     <div class="header-actions">
-      <a class="cart-link" href="https://order.toasttab.com/online/yobowl" target="_blank" rel="noopener">🛒 <span class="cart-badge">0</span> <span class="label">items</span></a>
-      <a class="btn" href="https://order.toasttab.com/online/yobowl" target="_blank" rel="noopener">Order Online</a>
+      <a class="cart-link" href="#" data-order-toggle>🛒</a>
+      <a class="btn" href="#" data-order-toggle>Order Online</a>
       <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -61,7 +60,7 @@
   <p class="section-eyebrow">Catering</p>
   <h1>Let us cater your event!</h1>
   <p style="max-width:560px;margin:0 auto 28px;font-size:19px">From office lunches to family celebrations — bring the bold flavors of Yo Bowl to your next gathering.</p>
-  <a class="btn btn--lg" href="Location.html#contact">Contact Us</a>
+  <a class="btn btn--lg" href="#contact">Contact Us</a>
 </section>
 
 <section data-screen-label="Catering menu">
@@ -71,6 +70,44 @@
     <div class="catering-img" data-reveal data-reveal-delay="120">
       <img src="https://static.hungerrush.com/menufy/width=1024,height=1024,fit=scale-down,format=auto/639087476474367676+1981351.png" alt="Yo Bowl Carrollton catering menu">
     </div>
+  </div>
+</section>
+
+<section id="contact" data-screen-label="Contact form">
+  <div class="wrap center" style="max-width:600px">
+    <p class="section-eyebrow" data-reveal>Get In Touch</p>
+    <h2 class="section-title" data-reveal>Contact Us</h2>
+    <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" data-reveal data-reveal-delay="120">
+      <!-- Web3Forms: REQUIRED. Submissions are emailed to the recipient set
+           for this access key in the Web3Forms dashboard (yobowl.carrollton@gmail.com).
+           See HOW-TO comment at the bottom of this file. -->
+      <input type="hidden" name="access_key" value="4a7ad28c-5195-41e7-bc19-8630fa246746">
+      <input type="hidden" name="subject" value="New Contact Form">
+      <input type="hidden" name="from_name" value="Yo Bowl">
+      <!-- Spam honeypot: stays empty for humans, hidden from view. Do not remove. -->
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div>
+        <label>Name <span class="req">*</span></label>
+        <input type="text" name="name" required>
+      </div>
+      <div>
+        <label>Email <span class="req">*</span></label>
+        <input type="email" name="email" required>
+      </div>
+      <div>
+        <label>Phone <span class="req">*</span></label>
+        <input type="tel" name="phone" required>
+      </div>
+      <div>
+        <label>Message <span class="req">*</span></label>
+        <textarea name="message" required></textarea>
+      </div>
+      <!-- hCaptcha: real anti-spam check. The Web3Forms client script (loaded
+           at the bottom of this page) auto-fills the sitekey and the token. -->
+      <div class="h-captcha" data-captcha="true"></div>
+      <button class="btn" type="submit">Submit</button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
+    </form>
   </div>
 </section>
 
@@ -92,13 +129,20 @@
       <h4>Explore</h4>
       <a href="index.html">Home</a><a href="Menu.html">Menu</a><a href="Gallery.html">Gallery</a>
       <a href="Location.html">Location &amp; Hours</a><a href="Catering.html">Catering</a>
-      <a href="https://order.toasttab.com/online/yobowl" target="_blank" rel="noopener">Order Online</a>
+      <a href="#" data-order-toggle>Order Online</a>
     </div>
     <div>
       <h4>Visit Us</h4>
-      <a href="https://www.google.com/maps/search/?api=1&query=2700+Old+Denton+Rd+Unit+110+Carrollton+TX+75007" target="_blank" rel="noopener">2700 Old Denton Rd, Unit 110<br>Carrollton, TX 75007</a>
-      <a href="tel:+14698926267">(469) 892-6267</a>
-      <p style="margin:10px 0 0">Open Daily · 11:00 AM – 9:00 PM</p>
+      <div class="footer-location">
+        <a href="https://www.google.com/maps/search/?api=1&query=2700+Old+Denton+Rd+Unit+110+Carrollton+TX+75007" target="_blank" rel="noopener">2700 Old Denton Rd, Unit 110<br>Carrollton, TX 75007</a>
+        <a href="tel:+14698926267">(469) 892-6267</a>
+        <p style="margin:10px 0 0">Open Daily · 11:00 AM – 9:00 PM</p>
+      </div>
+      <div class="footer-location">
+        <a href="https://www.google.com/maps/search/?api=1&query=4701+W+Park+Blvd+%23105+Plano+TX+75093" target="_blank" rel="noopener">4701 W Park Blvd #105<br>Plano, TX 75093</a>
+        <a href="tel:+19727589292">(972) 758-9292</a>
+        <p style="margin:10px 0 0">Open Daily · 11:00 AM – 9:00 PM</p>
+      </div>
     </div>
   </div>
   <div class="wrap footer-bottom">
@@ -115,5 +159,72 @@
 </script>
 <script src="js/reveal.js?v=1"></script>
 <script src="js/external-links.js?v=2"></script>
+<script src="js/order-locations.js?v=1"></script>
+
+<!-- ===== Contact form → Web3Forms =====
+     The form above is emailed to yobowl.carrollton@gmail.com via Web3Forms (no
+     backend needed). The active Access Key is already set in the <form> above.
+     To change the destination email later, log in to https://web3forms.com with
+     the account that owns this key and update the recipient under Settings — the
+     access key stays the same, so no code change is needed. After any change,
+     submit the form once on the live site to confirm delivery (check spam the
+     first time). -->
+<script>
+(function () {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  const status = document.getElementById('formStatus');
+  const btn = form.querySelector('button[type="submit"]');
+  const PHONE = '(469) 892-6267';
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Require the hCaptcha "I'm human" check to be completed first.
+    const cap = form.querySelector('textarea[name="h-captcha-response"]');
+    if (!cap || !cap.value) {
+      status.hidden = false;
+      status.className = 'form-status err';
+      status.textContent = 'Please complete the “I’m human” check above, then click Submit.';
+      return;
+    }
+
+    const prevLabel = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.hidden = false;
+    status.className = 'form-status';
+    status.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form)
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.success) {
+        status.className = 'form-status ok';
+        status.textContent = 'Thanks! Your message has been sent — we’ll be in touch soon.';
+        form.reset();
+      } else {
+        status.className = 'form-status err';
+        status.textContent = (json && json.message)
+          ? json.message
+          : 'Sorry, something went wrong. Please call us at ' + PHONE + '.';
+      }
+    } catch (err) {
+      status.className = 'form-status err';
+      status.textContent = 'Network error — please try again, or call us at ' + PHONE + '.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = prevLabel;
+    }
+  });
+})();
+</script>
+<!-- Web3Forms client script: renders the hCaptcha widget and injects its
+     sitekey + response token automatically. Required for the captcha above. -->
+<script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>

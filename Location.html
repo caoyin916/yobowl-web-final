@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@1,700;1,900&family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <script>document.documentElement.className += ' js';</script>
-<link rel="stylesheet" href="css/styles.css?v=3">
+<link rel="stylesheet" href="css/styles.css?v=6">
 <style>
   .loc-photos { padding: 8px 0 56px; }
   .loc-photo-grid {
@@ -55,12 +55,6 @@
     .loc-photo-grid { grid-template-columns: 1fr; gap: 32px; }
   }
   .park-figure { margin: 32px 0 0; }
-  /* Stretch info column to match Contact Form height; bottom aligns with Submit button */
-  .loc-grid { align-items: stretch; }
-  .loc-grid > [data-screen-label="Location info"] { display: flex; flex-direction: column; justify-content: space-between; }
-  .loc-grid > [data-screen-label="Location info"] > p { margin-bottom: 6px; }
-  .loc-grid > [data-screen-label="Location info"] .info-block { margin-bottom: 14px; }
-  .loc-grid > [data-screen-label="Location info"] .info-block:last-child { margin-bottom: 0; }
   .park-figure img {
     width: 100%;
     height: auto;
@@ -68,6 +62,22 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--line);
+  }
+  .locations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 48px;
+  }
+  .locations-grid > div {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    background: var(--paper);
+  }
+  .locations-grid .map-embed { margin-top: 24px; height: 320px; }
+  @media (max-width: 860px) {
+    .locations-grid { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -138,12 +148,11 @@
         <li><a href="Gallery.html">Gallery</a></li>
         <li><a class="active" href="Location.html">Location &amp; Hours</a></li>
         <li><a href="Catering.html">Catering</a></li>
-        <li><a href="Location.html#contact">Contact</a></li>
-      </ul>
+        </ul>
     </nav>
     <div class="header-actions">
-      <a class="cart-link" href="https://order.toasttab.com/online/yobowl" target="_blank" rel="noopener">🛒 <span class="cart-badge">0</span> <span class="label">items</span></a>
-      <a class="btn" href="https://order.toasttab.com/online/yobowl" target="_blank" rel="noopener">Order Online</a>
+      <a class="cart-link" href="#" data-order-toggle>🛒</a>
+      <a class="btn" href="#" data-order-toggle>Order Online</a>
       <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -152,28 +161,32 @@
 <div class="page-head" data-screen-label="Location page head">
   <p class="section-eyebrow">Find Us</p>
   <h1>Location &amp; Hours</h1>
-  <p>Find us, call us, or send a message — we'd love to hear from you.</p>
+  <p>Two Metroplex locations serving authentic Chinese comfort food — find the one nearest you.</p>
 </div>
 
 <section>
-  <div class="wrap loc-grid">
-    <!-- Left: info -->
-    <div data-screen-label="Location info" data-reveal>
-      <h2 style="font-size:30px">Yo Bowl Carrollton</h2>
-      <p style="color:var(--ink-soft)">Welcome to Yo Bowl Carrollton. We serve Chinese cuisine such as Braised Beef Mifen, Signature Dry Mifen, Fresh Yogurt and Dumplings. We are located on 2700 Old Denton Rd, near Young Sook Lee CPA. Order online for carryout today!</p>
+  <div class="wrap center" data-screen-label="Location intro" data-reveal>
+    <h2 style="font-size:30px">Welcome to Yo Bowl</h2>
+    <p style="color:var(--ink-soft);max-width:720px;margin:0 auto">We serve Chinese cuisine such as Braised Beef Mifen, Signature Dry Mifen, Fresh Yogurt and Dumplings. Order online for carryout today!</p>
 
-      <div class="info-block">
-        <h4>Cuisines</h4>
-        <div class="tags">
-          <span class="tag">Asian</span><span class="tag">Chicken</span><span class="tag">Chinese</span>
-          <span class="tag">Dessert</span><span class="tag">Noodles</span><span class="tag">Seafood</span>
-        </div>
+    <div class="info-block" style="margin-top:24px">
+      <h4>Cuisines</h4>
+      <div class="tags" style="justify-content:center">
+        <span class="tag">Asian</span><span class="tag">Chicken</span><span class="tag">Chinese</span>
+        <span class="tag">Dessert</span><span class="tag">Noodles</span><span class="tag">Seafood</span>
       </div>
+    </div>
 
-      <div class="info-block">
-        <h4>Atmosphere</h4>
-        <div class="tags"><span class="tag">Casual Dining</span></div>
-      </div>
+    <div class="info-block">
+      <h4>Atmosphere</h4>
+      <div class="tags" style="justify-content:center"><span class="tag">Casual Dining</span></div>
+    </div>
+  </div>
+
+  <div class="wrap locations-grid">
+    <!-- Carrollton -->
+    <div data-screen-label="Carrollton location" data-reveal>
+      <h2 style="font-size:26px">Carrollton</h2>
 
       <div class="info-block">
         <h4>Address</h4>
@@ -194,52 +207,46 @@
         <h4>Carryout Hours</h4>
         <table class="hours-table"><tr><td>Mon – Sun</td><td>11:00 AM – 8:30 PM</td></tr></table>
       </div>
+
+      <iframe class="map-embed" title="Yo Bowl Carrollton map" loading="lazy"
+        src="https://maps.google.com/maps?q=2700+Old+Denton+Rd+Unit+110+Carrollton+TX+75007&z=15&output=embed"></iframe>
+
+      <figure class="park-figure" data-reveal>
+        <img src="location-photo/where-to-park-storefront.png" alt="Yo Bowl Carrollton storefront at Unit 110 and a where-to-park guide showing map, street entrance, back entrance and parking entrance" width="1774" height="887" loading="lazy" decoding="async">
+      </figure>
     </div>
 
-    <!-- Right: contact form -->
-    <div id="contact" data-screen-label="Contact form" data-reveal data-reveal-delay="120">
-      <p class="section-eyebrow">Get In Touch</p>
-      <h2 style="font-size:30px">Contact Form</h2>
-      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-        <!-- Web3Forms: REQUIRED. Submissions are emailed to the recipient set
-             for this access key in the Web3Forms dashboard (yobowl.carrollton@gmail.com).
-             See HOW-TO comment at the bottom of this file. -->
-        <input type="hidden" name="access_key" value="4a7ad28c-5195-41e7-bc19-8630fa246746">
-        <input type="hidden" name="subject" value="New contact-form message — Yo Bowl Carrollton">
-        <input type="hidden" name="from_name" value="Yo Bowl Carrollton Website">
-        <!-- Spam honeypot: stays empty for humans, hidden from view. Do not remove. -->
-        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div>
-          <label>Name <span class="req">*</span></label>
-          <input type="text" name="name" required>
-        </div>
-        <div>
-          <label>Email <span class="req">*</span></label>
-          <input type="email" name="email" required>
-        </div>
-        <div>
-          <label>Phone <span class="req">*</span></label>
-          <input type="tel" name="phone" required>
-        </div>
-        <div>
-          <label>Message <span class="req">*</span></label>
-          <textarea name="message" required></textarea>
-        </div>
-        <!-- hCaptcha: real anti-spam check. The Web3Forms client script (loaded
-             at the bottom of this page) auto-fills the sitekey and the token. -->
-        <div class="h-captcha" data-captcha="true"></div>
-        <button class="btn" type="submit">Submit</button>
-        <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
-      </form>
-    </div>
-  </div>
+    <!-- Plano -->
+    <div data-screen-label="Plano location" data-reveal data-reveal-delay="120">
+      <h2 style="font-size:26px">Plano</h2>
 
-  <div class="wrap">
-    <iframe class="map-embed" title="Yo Bowl Carrollton map" loading="lazy" style="height:420px;margin-top:48px" data-reveal
-      src="https://maps.google.com/maps?q=2700+Old+Denton+Rd+Unit+110+Carrollton+TX+75007&z=15&output=embed"></iframe>
-    <figure class="park-figure" data-reveal>
-      <img src="location-photo/where-to-park-storefront.png" alt="Yo Bowl Carrollton storefront at Unit 110 and a where-to-park guide showing map, street entrance, back entrance and parking entrance" width="1774" height="887" loading="lazy" decoding="async">
-    </figure>
+      <div class="info-block">
+        <h4>Address</h4>
+        <a href="https://www.google.com/maps/search/?api=1&query=4701+W+Park+Blvd+%23105+Plano+TX+75093" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">4701 W Park Blvd #105, Plano, TX 75093</a>
+      </div>
+
+      <div class="info-block">
+        <h4>Phone</h4>
+        <a href="tel:+19727589292" style="color:var(--accent);font-weight:600">(972) 758-9292</a>
+      </div>
+
+      <div class="info-block">
+        <h4>Business Hours</h4>
+        <table class="hours-table"><tr><td>Mon – Sun</td><td>11:00 AM – 9:00 PM</td></tr></table>
+      </div>
+
+      <div class="info-block">
+        <h4>Carryout Hours</h4>
+        <table class="hours-table"><tr><td>Mon – Sun</td><td>11:00 AM – 8:30 PM</td></tr></table>
+      </div>
+
+      <iframe class="map-embed" title="Yo Bowl Plano map" loading="lazy"
+        src="https://maps.google.com/maps?q=4701+W+Park+Blvd+%23105+Plano+TX+75093&z=15&output=embed"></iframe>
+
+      <figure class="park-figure" data-reveal>
+        <img src="location-photo/yobow-plano-storefront.jpg" alt="Yo Bowl Plano storefront" width="1774" height="887" loading="lazy" decoding="async" style="aspect-ratio:1774/887;object-fit:cover">
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -261,13 +268,20 @@
       <h4>Explore</h4>
       <a href="index.html">Home</a><a href="Menu.html">Menu</a><a href="Gallery.html">Gallery</a>
       <a href="Location.html">Location &amp; Hours</a><a href="Catering.html">Catering</a>
-      <a href="https://order.toasttab.com/online/yobowl" target="_blank" rel="noopener">Order Online</a>
+      <a href="#" data-order-toggle>Order Online</a>
     </div>
     <div>
       <h4>Visit Us</h4>
-      <a href="https://www.google.com/maps/search/?api=1&query=2700+Old+Denton+Rd+Unit+110+Carrollton+TX+75007" target="_blank" rel="noopener">2700 Old Denton Rd, Unit 110<br>Carrollton, TX 75007</a>
-      <a href="tel:+14698926267">(469) 892-6267</a>
-      <p style="margin:10px 0 0">Open Daily · 11:00 AM – 9:00 PM</p>
+      <div class="footer-location">
+        <a href="https://www.google.com/maps/search/?api=1&query=2700+Old+Denton+Rd+Unit+110+Carrollton+TX+75007" target="_blank" rel="noopener">2700 Old Denton Rd, Unit 110<br>Carrollton, TX 75007</a>
+        <a href="tel:+14698926267">(469) 892-6267</a>
+        <p style="margin:10px 0 0">Open Daily · 11:00 AM – 9:00 PM</p>
+      </div>
+      <div class="footer-location">
+        <a href="https://www.google.com/maps/search/?api=1&query=4701+W+Park+Blvd+%23105+Plano+TX+75093" target="_blank" rel="noopener">4701 W Park Blvd #105<br>Plano, TX 75093</a>
+        <a href="tel:+19727589292">(972) 758-9292</a>
+        <p style="margin:10px 0 0">Open Daily · 11:00 AM – 9:00 PM</p>
+      </div>
     </div>
   </div>
   <div class="wrap footer-bottom">
@@ -283,72 +297,8 @@
   t && t.addEventListener('click', () => n.classList.toggle('open'));
 </script>
 
-<!-- ===== Contact form → Web3Forms =====
-     The form above is emailed to yobowl.carrollton@gmail.com via Web3Forms (no
-     backend needed). The active Access Key is already set in the <form> above.
-     To change the destination email later, log in to https://web3forms.com with
-     the account that owns this key and update the recipient under Settings — the
-     access key stays the same, so no code change is needed. After any change,
-     submit the form once on the live site to confirm delivery (check spam the
-     first time). -->
-<script>
-(function () {
-  const form = document.getElementById('contactForm');
-  if (!form) return;
-  const status = document.getElementById('formStatus');
-  const btn = form.querySelector('button[type="submit"]');
-  const PHONE = '(469) 892-6267';
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    // Require the hCaptcha "I'm human" check to be completed first.
-    const cap = form.querySelector('textarea[name="h-captcha-response"]');
-    if (!cap || !cap.value) {
-      status.hidden = false;
-      status.className = 'form-status err';
-      status.textContent = 'Please complete the “I’m human” check above, then click Submit.';
-      return;
-    }
-
-    const prevLabel = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    status.hidden = false;
-    status.className = 'form-status';
-    status.textContent = 'Sending…';
-
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(form)
-      });
-      const json = await res.json().catch(() => ({}));
-      if (res.ok && json.success) {
-        status.className = 'form-status ok';
-        status.textContent = 'Thanks! Your message has been sent — we’ll be in touch soon.';
-        form.reset();
-      } else {
-        status.className = 'form-status err';
-        status.textContent = (json && json.message)
-          ? json.message
-          : 'Sorry, something went wrong. Please call us at ' + PHONE + '.';
-      }
-    } catch (err) {
-      status.className = 'form-status err';
-      status.textContent = 'Network error — please try again, or call us at ' + PHONE + '.';
-    } finally {
-      btn.disabled = false;
-      btn.textContent = prevLabel;
-    }
-  });
-})();
-</script>
-<!-- Web3Forms client script: renders the hCaptcha widget and injects its
-     sitekey + response token automatically. Required for the captcha above. -->
-<script src="https://web3forms.com/client/script.js" async defer></script>
 <script src="js/reveal.js?v=1"></script>
 <script src="js/external-links.js?v=2"></script>
+<script src="js/order-locations.js?v=1"></script>
 </body>
 </html>
