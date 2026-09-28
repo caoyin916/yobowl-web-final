@@ -51,9 +51,18 @@ The other piece of real logic, at the bottom of the Catering page (`#contactForm
 - The `access_key` hidden input identifies the Web3Forms account; the **recipient email is configured in the Web3Forms dashboard, not in this repo** (currently `yobowl.carrollton@gmail.com`). To change where messages go, log in at web3forms.com and update the recipient — no code change, the access key stays the same. See the HOW-TO comment near the bottom of `Catering.html`.
 - Spam protection is a hidden `botcheck` honeypot **plus** hCaptcha (`.h-captcha[data-captcha]`, auto-filled by the Web3Forms client script). The inline submit handler blocks submission until the hCaptcha token is present, then POSTs via `fetch()` and shows an inline status. Don't remove the honeypot or the captcha gate.
 
+## Browsable menu (`Menu.html` + `js/menu.js`)
+
+Below the menu board image, `Menu.html` has a filterable, clickable text menu (modeled on the Zhang's Bistro redesign, `caoyin916.github.io/zhang-bistro-web-design/menu.html`). The dishes are **static HTML** (`.menu-cat` cards containing `button.menu-item`s), transcribed from the **right half** of `menu-photo/main-menu.webp`, since the left half is the Build-Yo!-Own-Bowl builder and not a dish list. A few dishes that have photos but aren't on the board image were appended to the end of their categories with a `$X.XX` placeholder price. Search for `$X.XX` to find them. Its CSS lives in `Menu.html`'s inline `<style>`, not `styles.css`.
+- A dish's photo is its `data-photo` attribute (a path into `menu-photo/menu-dish-photo/`; filenames are case-sensitive on the host). By default the dialog crops the photo to fill its box. Add `data-photo-fit="contain"` to show the whole image on white instead, which is meant for product cutouts like the canned and bottled drinks. Without one, the dialog shows a "Picture coming soon / 图片即将上线" placeholder. `menu.js` adds the camera icon to dishes that have a `data-photo`, so don't hand-write the icon.
+- The filter pills' `data-filter` values must match the `.menu-cat` ids.
+- When prices or dishes change, update this markup **and** the menu image. The page's `Menu` JSON-LD in `<head>` is separate and only partial.
+
 ## Other image directories
 
-`location-photo/` and `menu-photo/` are plain, hardcoded `<img src="…">` references from `Location.html` and `Menu.html` — no JSON manifest, no admin tooling, unlike `gallery-photo/`.
+`location-photo/` is referenced by plain, hardcoded `<img src="…">` tags from `Location.html`. The same goes for `menu-photo/main-menu.webp` on `Menu.html`, while `menu-photo/menu-dish-photo/` is referenced by the `data-photo` attributes above. None of these have a JSON manifest or admin tooling, unlike `gallery-photo/`.
+
+`gbp-photo/` and `ig-photo/` (Google Business Profile and Instagram photo dumps) are raw source material, not referenced by any HTML page — pull from these when sourcing new photos for the gallery or elsewhere, don't assume they're already wired up.
 
 ## `uploads/`
 

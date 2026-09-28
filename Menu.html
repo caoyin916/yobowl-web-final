@@ -99,6 +99,190 @@
   }
   /* Snacks flyer is portrait — show it at 50% width, centered. */
   .menu-board .menu-snacks { width: 50%; margin: 0 auto; }
+
+  /* ===== Browsable menu ===== */
+  .menu-browse { padding-top: 16px; }
+  .menu-tip { display: inline-flex; align-items: center; gap: 7px; color: var(--accent); font-weight: 600; }
+  .menu-tip .photo-icon { opacity: 1; margin: 0; }
+
+  .menu-filter {
+    position: sticky; top: 70px; z-index: 40;
+    margin-top: 36px; padding: 14px 0;
+    background: rgba(248,242,232,.94);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  html:not(.js) .menu-filter { display: none; }
+  .menu-filter-list { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
+  .menu-filter-list::-webkit-scrollbar { display: none; }
+  /* auto margins center the pills without clipping the first one when the row overflows */
+  .menu-filter-btn:first-child { margin-left: auto; }
+  .menu-filter-btn:last-child { margin-right: auto; }
+  .menu-filter-btn {
+    flex: 0 0 auto;
+    font-family: var(--font-ui); font-weight: 700; font-size: 13px; letter-spacing: .02em;
+    padding: 9px 18px; border-radius: 999px;
+    border: 1.5px solid var(--line); background: var(--paper); color: var(--ink-soft);
+    cursor: pointer;
+    transition: color .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .menu-filter-btn:hover { color: var(--accent); border-color: rgba(190,47,37,.45); }
+  .menu-filter-btn[aria-pressed="true"] {
+    background-image: var(--chili-oil); color: #fff; border-color: transparent;
+    box-shadow: 0 6px 16px rgba(190,47,37,.26);
+  }
+  .menu-filter-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .menu-cats { columns: 3; column-gap: 24px; padding-top: 36px; text-align: left; }
+  .menu-cats.is-filtered { columns: 1; max-width: 760px; margin: 0 auto; }
+  .menu-cat {
+    break-inside: avoid; display: inline-block; width: 100%; margin-bottom: 24px;
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm);
+  }
+  .menu-cat[hidden] { display: none; }
+  .menu-cat-head {
+    position: relative;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    padding: 15px 22px 17px;
+    background-image: var(--ink-grad); color: #fff;
+  }
+  .menu-cat-head::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background-image: var(--chili-oil);
+  }
+  .menu-cat-head h3 { margin: 0; font-size: 17px; font-weight: 800; letter-spacing: .01em; }
+  .menu-cat-head .cn { color: var(--gold); font-size: 15px; font-weight: 600; white-space: nowrap; }
+  .menu-cat-note { margin: 0; padding: 12px 22px 0; font-size: 13px; color: var(--ink-mute); }
+  .menu-list { padding: 4px 22px 12px; }
+
+  .menu-item {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+    width: 100%; margin: 0; padding: 13px 0;
+    background: none; border: 0; border-bottom: 1px dashed var(--line);
+    color: inherit; font: inherit; text-align: left; cursor: pointer;
+    break-inside: avoid;
+  }
+  .menu-item:last-child { border-bottom: 0; }
+  .menu-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .menu-item-name { display: block; min-width: 0; }
+  .menu-item-en {
+    display: block;
+    font-family: var(--font-ui); font-weight: 600; font-size: 15.5px; line-height: 1.35;
+    color: var(--ink); transition: color .2s var(--ease);
+  }
+  .menu-item:hover .menu-item-en, .menu-item:focus-visible .menu-item-en { color: var(--accent); }
+  .menu-item-meta { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 3px; font-size: 13px; line-height: 1.45; color: var(--ink-mute); }
+  .menu-item-note { font-style: italic; }
+  .menu-item-price {
+    font-family: var(--font-ui); font-weight: 700; font-size: 15.5px; line-height: 1.35;
+    color: var(--accent); white-space: nowrap;
+  }
+  .menu-item-price small, .dish-dialog-price small {
+    font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-mute); margin-right: 3px;
+  }
+  .photo-icon {
+    display: inline-block; width: 15px; height: 15px; margin-left: 7px; vertical-align: -2px;
+    background-color: currentColor; opacity: .45;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z'/%3E%3Ccircle cx='12' cy='13' r='4'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z'/%3E%3Ccircle cx='12' cy='13' r='4'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .menu-item:hover .photo-icon { opacity: 1; }
+  .menu-flag {
+    display: inline-block; margin-left: 7px; padding: 2px 7px; vertical-align: 2px;
+    border-radius: 999px;
+    font-family: var(--font-ui); font-size: 10px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; line-height: 1.4;
+  }
+  .menu-flag--spicy { background: rgba(190,47,37,.10); color: var(--accent); }
+  .menu-flag--peanut { background: rgba(214,164,55,.20); color: #82590c; }
+
+  .menu-extras { margin: 0 22px 20px; padding: 14px 16px; background: var(--cream); border-radius: var(--radius); }
+  .menu-extras h4 {
+    margin: 0 0 6px; font-family: var(--font-ui); font-size: 11px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--accent);
+  }
+  .menu-extras ul { list-style: none; margin: 0; padding: 0; font-size: 13.5px; }
+  .menu-extras li { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; color: var(--ink-soft); }
+  .menu-extras li span:last-child { font-family: var(--font-ui); font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+  @media (min-width: 760px) {
+    .menu-cats.is-filtered .menu-list { columns: 2; column-gap: 36px; }
+    .menu-cats.is-filtered .menu-extras ul { columns: 2; column-gap: 36px; }
+  }
+  @media (max-width: 1024px) { .menu-cats { columns: 2; } }
+  @media (max-width: 680px) {
+    .menu-cats { columns: 1; }
+    .menu-filter { margin-top: 28px; padding: 12px 0; }
+    .menu-list { padding: 2px 18px 10px; }
+    .menu-cat-head { padding: 14px 18px 16px; }
+    .menu-cat-note { padding: 12px 18px 0; }
+    .menu-extras { margin: 0 18px 18px; }
+  }
+
+  /* ===== Dish photo dialog ===== */
+  html.dialog-open { overflow: hidden; scrollbar-gutter: stable; }
+  .dish-dialog {
+    width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 32px);
+    padding: 0; border: 0; border-radius: var(--radius-lg); overflow: hidden;
+    background: var(--paper); color: var(--ink);
+    box-shadow: 0 30px 70px rgba(33,26,21,.35);
+  }
+  .dish-dialog::backdrop { background: rgba(33,26,21,.62); }
+  .dish-dialog[open] { animation: dishIn .28s var(--ease); }
+  @keyframes dishIn { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+  .dish-dialog-inner { position: relative; max-height: inherit; overflow-y: auto; }
+  .dish-dialog-close {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    width: 38px; height: 38px; border: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.94); color: var(--ink); box-shadow: var(--shadow-md);
+    cursor: pointer; transition: background .2s var(--ease), color .2s var(--ease);
+  }
+  .dish-dialog-close:hover { background: var(--accent); color: #fff; }
+  .dish-dialog-close svg { width: 18px; height: 18px; }
+  .dish-dialog-media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--cream-deep); }
+  /* explicit height, not aspect-ratio + max-height (that shrinks the width too) */
+  .dish-dialog-media.is-portrait { aspect-ratio: auto; height: min(58vh, 650px); }
+  .dish-photo { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s var(--ease); }
+  .dish-photo.is-loaded { opacity: 1; }
+  .dish-dialog-media.is-contain { background: #fff; }
+  .dish-dialog-media.is-contain .dish-photo { object-fit: contain; padding: 20px; }
+  .dish-dialog-media.is-loading::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+    background-size: 200% 100%;
+    animation: dishShimmer 1.2s linear infinite;
+  }
+  @keyframes dishShimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+  .dish-dialog-placeholder {
+    height: 100%; padding: 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    text-align: center;
+    background: radial-gradient(90% 90% at 50% 40%, #fffaf2 0%, var(--cream-deep) 100%);
+  }
+  .dish-dialog-placeholder img { width: 84px; height: 84px; object-fit: contain; opacity: .45; margin-bottom: 12px; }
+  .dish-dialog-placeholder strong { font-family: var(--font-head); font-size: 20px; color: var(--ink); }
+  .dish-dialog-placeholder span { font-size: 14px; color: var(--ink-mute); }
+  .dish-dialog-body { padding: 22px 26px 26px; }
+  .dish-dialog-cat {
+    margin: 0 0 6px; font-family: var(--font-ui); font-size: 11px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase; color: var(--accent);
+  }
+  .dish-dialog-title { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+  .dish-dialog-title h3 { margin: 0; font-size: 22px; }
+  .dish-dialog-price { font-family: var(--font-ui); font-weight: 800; font-size: 20px; color: var(--accent); white-space: nowrap; }
+  .dish-dialog-cn { margin: 4px 0 0; font-size: 15px; color: var(--ink-soft); }
+  .dish-dialog-note { margin: 6px 0 0; font-size: 14px; font-style: italic; color: var(--ink-mute); }
+  .dish-dialog-cn:empty, .dish-dialog-note:empty, .dish-dialog-flags:empty { display: none; }
+  .dish-dialog-flags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .dish-dialog-flags .menu-flag { margin-left: 0; }
+  .dish-dialog-body .btn { margin-top: 20px; padding: 12px 24px; font-size: 13px; }
+  @media (prefers-reduced-motion: reduce) {
+    .dish-dialog[open], .dish-dialog-media.is-loading::after { animation: none; }
+    .dish-photo { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -139,7 +323,295 @@
         <img src="menu-photo/main-menu.webp" alt="Yo Bowl Carrollton full menu — Build Yo! Own Bowl, signature bowls, appetizers, drinks and desserts" fetchpriority="high" decoding="async">
       </figure>
     </div>
-    <div class="center" style="margin-top:44px" data-reveal>
+  </div>
+</section>
+
+<section class="menu-browse" id="full-menu" data-screen-label="Full menu">
+  <div class="wrap center" data-reveal>
+    <p class="section-eyebrow">Tap To Explore</p>
+    <h2 class="section-title">The Full Menu</h2>
+    <p class="section-lead"><span class="menu-tip"><span class="photo-icon" aria-hidden="true"></span>Tap any dish</span> to see its photo.</p>
+  </div>
+
+  <div class="menu-filter">
+    <div class="wrap">
+      <div class="menu-filter-list" role="group" aria-label="Filter menu by category">
+        <button type="button" class="menu-filter-btn" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="menu-filter-btn" data-filter="signature-bowls" aria-pressed="false">Signature Bowls</button>
+        <button type="button" class="menu-filter-btn" data-filter="rice-bowls" aria-pressed="false">Rice Bowls</button>
+        <button type="button" class="menu-filter-btn" data-filter="cold-appetizers" aria-pressed="false">Cold Appetizers</button>
+        <button type="button" class="menu-filter-btn" data-filter="hot-appetizers" aria-pressed="false">Hot Appetizers</button>
+        <button type="button" class="menu-filter-btn" data-filter="drinks" aria-pressed="false">Drinks</button>
+        <button type="button" class="menu-filter-btn" data-filter="dessert" aria-pressed="false">Dessert</button>
+        <button type="button" class="menu-filter-btn" data-filter="other" aria-pressed="false">Other</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- Each dish is a button; data-photo points at its picture in menu-photo/menu-dish-photo/.
+         Leave data-photo off and the dialog shows "Picture coming soon". -->
+    <div class="menu-cats" data-reveal>
+
+      <div class="menu-cat" id="signature-bowls">
+        <div class="menu-cat-head"><h3>Signature Bowls</h3><span class="cn" lang="zh">经典米粉</span></div>
+        <p class="menu-cat-note">Includes 3 toppings</p>
+        <div class="menu-list">
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Braised Beef Soup Mifen.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Braised Beef Soup Mifen<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">红烧牛肉米粉</span></span></span>
+            <span class="menu-item-price">$12.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Signature Beef Dry Mifen.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Signature Beef Dry Mifen<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">招牌牛肉卤粉（干拌）</span></span></span>
+            <span class="menu-item-price">$12.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Original Beef Soup Mifen.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Original Beef Soup Mifen</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">原汤牛肉粉</span></span></span>
+            <span class="menu-item-price">$12.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Original Beef Meatball Soup Mifen</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">原汤牛筋丸粉</span></span></span>
+            <span class="menu-item-price">$12.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Spicy Beef Jerky Dry Mifen_Ramen.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Spicy Beef Jerky Dry Mifen<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">麻辣牛肉粉（干拌）</span></span></span>
+            <span class="menu-item-price">$13.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Sour &amp; Spicy Beef Soup Mifen.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Sour &amp; Spicy Tomato Beef Soup Mifen<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">红酸汤牛肉粉</span></span></span>
+            <span class="menu-item-price">$13.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Roasted Duck Soup Mifen.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Roasted Duck Soup Mifen</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">烧鸭汤米粉</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+        </div>
+        <div class="menu-extras">
+          <h4>+ Extra Toppings <span lang="zh">加料</span></h4>
+          <ul>
+            <li><span>Teriyaki Egg</span><span>$1.75</span></li>
+            <li><span>Fried Egg</span><span>$1.75</span></li>
+            <li><span>Quail Egg</span><span>$1.50</span></li>
+            <li><span>Extra Meat</span><span>from $5.00</span></li>
+            <li><span>Extra Mifen</span><span>$2.75</span></li>
+            <li><span>Extra Ramen Noodle</span><span>$2.75</span></li>
+            <li><span>Extra Chinese Fried Dough (Youtiao)</span><span>$2.75</span></li>
+            <li><span>Extra Soup</span><span>$2.75</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="menu-cat" id="rice-bowls">
+        <div class="menu-cat-head"><h3>Rice Bowls</h3><span class="cn" lang="zh">盖饭</span></div>
+        <div class="menu-list">
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Spicy Chicken Over Rice.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Spicy Chicken Over Rice<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">辣子鸡盖饭</span></span></span>
+            <span class="menu-item-price">$11.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Japanese Curry Rice</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">日式咖喱饭</span><span class="menu-item-note">Chicken Katsu +$3 · Fried Fish +$3 · Fried Shrimp +$4 · Taiwanese Sausage (2 pcs) +$5</span></span></span>
+            <span class="menu-item-price"><small>from</small>$9.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Fried Rice</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">炒饭</span><span class="menu-item-note">Chicken +$1 · Beef +$2 · Shrimp +$3 · Combo +$4</span></span></span>
+            <span class="menu-item-price"><small>from</small>$10.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Braised Pork Over Rice.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Braised Pork Over Rice</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">卤肉饭</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Pork Chop Rice.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Pork Chop Rice</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">猪排饭</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Roasted Duck Over Rice.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Roasted Duck Over Rice</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">烧鸭饭</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Stir-Fried Flat Rice Noodles.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Stir-Fried Flat Rice Noodles</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">干炒河粉</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-cat" id="cold-appetizers">
+        <div class="menu-cat-head"><h3>Cold Appetizers</h3><span class="cn" lang="zh">小菜</span></div>
+        <div class="menu-list">
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Cucumber Salad.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Cucumber Salad<span class="menu-flag menu-flag--peanut">Peanuts</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">凉拌黄瓜</span></span></span>
+            <span class="menu-item-price">$7.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Wood Ear Mushroom Salad.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Wood Ear Mushroom Salad<span class="menu-flag menu-flag--spicy">Spicy</span><span class="menu-flag menu-flag--peanut">Peanuts</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">凉拌木耳</span></span></span>
+            <span class="menu-item-price">$7.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Tofu with Scallion Salad.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Tofu with Scallion Salad</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">小葱拌豆腐</span></span></span>
+            <span class="menu-item-price">$6.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Tofu with Century Egg Salad.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Tofu with Century Egg Salad</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">皮蛋豆腐</span></span></span>
+            <span class="menu-item-price">$8.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Beef in Spicy Chili Oil.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Marinated Beef in Chili Oil<span class="menu-flag menu-flag--spicy">Spicy</span><span class="menu-flag menu-flag--peanut">Peanuts</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">凉拌麻辣牛肉</span></span></span>
+            <span class="menu-item-price">$13.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Hunan Style Beef Jerky.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Spicy Beef Jerky<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">麻辣牛肉干</span></span></span>
+            <span class="menu-item-price">$14.95</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-cat" id="hot-appetizers">
+        <div class="menu-cat-head"><h3>Hot Appetizers</h3><span class="cn" lang="zh">小吃</span></div>
+        <div class="menu-list">
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Dumplings.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Dumplings</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">饺子</span><span class="menu-item-note">5 pcs</span></span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Wonton in Chili Oil.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Wonton in Chili Oil<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">红油抄手</span><span class="menu-item-note">5 pcs</span></span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Scallion Pancake.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Scallion Pancake</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">葱油饼</span></span></span>
+            <span class="menu-item-price">$3.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Cheese Wonton.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Cheese Wontons</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">芝士云吞</span><span class="menu-item-note">4 pcs</span></span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Vegetarian Egg Rolls</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">素春卷</span><span class="menu-item-note">2 pcs</span></span></span>
+            <span class="menu-item-price">$2.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Fried Tofu</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">炸豆腐</span></span></span>
+            <span class="menu-item-price">$3.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Beef Roll.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Beef Roll</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">牛肉卷饼</span><span class="menu-item-note">1 roll</span></span></span>
+            <span class="menu-item-price">$7.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Taiwanese Sausage.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Taiwanese Sausage</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">台湾香肠</span></span></span>
+            <span class="menu-item-price">$7.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Hot and Spicy Fries.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Hot &amp; Spicy Fries<span class="menu-flag menu-flag--spicy">Spicy</span></span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">琅琊土豆条</span></span></span>
+            <span class="menu-item-price">$6.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Chicken Katsu.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Chicken Katsu</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">炸鸡排</span></span></span>
+            <span class="menu-item-price">$5.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Fried Fish.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Fried Fish</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">炸鱼排</span></span></span>
+            <span class="menu-item-price">$5.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Fried Shrimp(Ebi Fry).jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Fried Shrimp (Ebi Fry)</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">炸虾</span></span></span>
+            <span class="menu-item-price">$5.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Crispy Chicken Wing.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Crispy Chicken Wing</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">炸鸡翅</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Crispy Fried Chicken.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Crispy Fried Chicken</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">香酥炸鸡</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Crispy Duck.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Crispy Duck</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">香酥鸭</span></span></span>
+            <span class="menu-item-price">$X.XX</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-cat" id="drinks">
+        <div class="menu-cat-head"><h3>Drinks</h3><span class="cn" lang="zh">饮料</span></div>
+        <div class="menu-list">
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/soda.jpg" data-photo-fit="contain">
+            <span class="menu-item-name"><span class="menu-item-en">Soda</span></span>
+            <span class="menu-item-price">$1.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Hibiscus Tea.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Hibiscus Tea</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">洛神花茶</span><span class="menu-item-note">No caffeine</span></span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Winter Melon Tea</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">冬瓜茶</span><span class="menu-item-note">No caffeine</span></span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Thai Milk Tea</span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Mexican Coke.jpg" data-photo-fit="contain">
+            <span class="menu-item-name"><span class="menu-item-en">Mexican Coke</span></span>
+            <span class="menu-item-price">$3.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Mandarin Soda.jpg" data-photo-fit="contain">
+            <span class="menu-item-name"><span class="menu-item-en">Mandarin Soda</span></span>
+            <span class="menu-item-price">$3.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Hot Green Tea</span><span class="menu-item-meta"><span class="menu-item-note">Free refills</span></span></span>
+            <span class="menu-item-price">$1.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Iced Black Tea</span><span class="menu-item-meta"><span class="menu-item-note">Free refills</span></span></span>
+            <span class="menu-item-price">$1.95</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-cat" id="dessert">
+        <div class="menu-cat-head"><h3>Dessert</h3><span class="cn" lang="zh">甜品</span></div>
+        <div class="menu-list">
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Homemade Yogurt.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Homemade Yogurt</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">老北京酸奶</span></span></span>
+            <span class="menu-item-price">$3.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Yogurt with Strawberries.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Yogurt with Strawberries</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">草莓酸奶</span></span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Yogurt with Blueberries.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Yogurt with Blueberries</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">蓝莓酸奶</span></span></span>
+            <span class="menu-item-price">$4.95</span>
+          </button>
+          <button type="button" class="menu-item" data-photo="menu-photo/menu-dish-photo/Spiralina Yogurt Parfait.jpg">
+            <span class="menu-item-name"><span class="menu-item-en">Spirulina Avocado Yogurt Parfait</span><span class="menu-item-meta"><span class="menu-item-cn" lang="zh">藻蓝云朵酸奶</span></span></span>
+            <span class="menu-item-price">$5.95</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-cat" id="other">
+        <div class="menu-cat-head"><h3>Other</h3><span class="cn" lang="zh">其他</span></div>
+        <div class="menu-list">
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">House Chili Oil (Jar)</span></span>
+            <span class="menu-item-price">$7.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Wok-Fried Peanuts (Jar)</span></span>
+            <span class="menu-item-price">$7.95</span>
+          </button>
+          <button type="button" class="menu-item">
+            <span class="menu-item-name"><span class="menu-item-en">Fresh Thai Chili Sauce (Jar)</span></span>
+            <span class="menu-item-price">$9.95</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="center" style="margin-top:28px" data-reveal>
       <a class="btn btn--lg" href="#" data-order-toggle>Order Online</a>
     </div>
   </div>
@@ -187,6 +659,23 @@
   </div>
 </footer>
 
+<dialog class="dish-dialog" id="dishDialog" aria-labelledby="dishDialogTitle">
+  <div class="dish-dialog-inner">
+    <button type="button" class="dish-dialog-close" data-dialog-close aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+    <div class="dish-dialog-media"></div>
+    <div class="dish-dialog-body">
+      <p class="dish-dialog-cat"></p>
+      <div class="dish-dialog-title"><h3 id="dishDialogTitle"></h3><span class="dish-dialog-price"></span></div>
+      <p class="dish-dialog-cn" lang="zh"></p>
+      <p class="dish-dialog-note"></p>
+      <div class="dish-dialog-flags"></div>
+      <a class="btn" href="#" data-order-toggle>Order Online</a>
+    </div>
+  </div>
+</dialog>
+
 <script>
   const t = document.getElementById('navToggle');
   const n = document.getElementById('nav');
@@ -195,5 +684,6 @@
 <script src="js/reveal.js?v=1"></script>
 <script src="js/external-links.js?v=2"></script>
 <script src="js/order-locations.js?v=1"></script>
+<script src="js/menu.js?v=2"></script>
 </body>
 </html>
